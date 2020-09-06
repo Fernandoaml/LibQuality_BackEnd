@@ -16,7 +16,7 @@ export default class CreateRepositoriesData1599336625500
           },
           {
             name: 'idRepository',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
@@ -30,18 +30,13 @@ export default class CreateRepositoriesData1599336625500
             isNullable: true,
           },
           {
-            name: 'private',
-            type: 'boolean',
-            isNullable: true,
-          },
-          {
             name: 'ownerLogin',
             type: 'varchar',
             isNullable: true,
           },
           {
             name: 'ownerId',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
@@ -55,28 +50,18 @@ export default class CreateRepositoriesData1599336625500
             isNullable: true,
           },
           {
-            name: 'createdAt',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'updatedAt',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
             name: 'size',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
             name: 'stargazersCount',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
             name: 'watchersCount',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
@@ -86,12 +71,22 @@ export default class CreateRepositoriesData1599336625500
           },
           {
             name: 'forksCount',
-            type: 'decimal',
+            type: 'integer',
             isNullable: true,
           },
           {
             name: 'openIssuesCount',
-            type: 'decimal',
+            type: 'integer',
+            isNullable: true,
+          },
+          {
+            name: 'createdAt',
+            type: 'timestamp',
+            isNullable: true,
+          },
+          {
+            name: 'updatedAt',
+            type: 'timestamp',
             isNullable: true,
           },
         ],

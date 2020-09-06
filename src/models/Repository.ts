@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('repositories')
 class Repository {
@@ -15,9 +21,6 @@ class Repository {
   fullName: string;
 
   @Column()
-  private: boolean;
-
-  @Column()
   ownerLogin: string;
 
   @Column()
@@ -28,12 +31,6 @@ class Repository {
 
   @Column()
   htmlURL: string;
-
-  @Column()
-  createdAt: string;
-
-  @Column()
-  updatedAt: string;
 
   @Column()
   size: number;
@@ -52,6 +49,12 @@ class Repository {
 
   @Column()
   openIssuesCount: number;
+
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }
 
 export default Repository;
