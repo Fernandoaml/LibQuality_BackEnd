@@ -4,7 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+
+import Repository from './Repository';
 
 @Entity('issues')
 class Issue {
@@ -13,6 +17,13 @@ class Issue {
 
   @Column()
   issuesTotal: number;
+
+  @Column()
+  repositoryId: string;
+
+  @ManyToOne(() => Repository)
+  @JoinColumn({ name: 'repositoryId' })
+  repository: Repository;
 
   @Column()
   oldestIssue: Date;

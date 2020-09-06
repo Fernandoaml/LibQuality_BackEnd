@@ -5,7 +5,7 @@ import Repository from '../models/Repository';
 import api from '../assets/gitHubApiRepos';
 
 class CreateRepositoryService {
-  public async execute(RepoName: string): Promise<Repository> {
+  public async execute(repoName: string): Promise<Repository> {
     const projectRepository = getRepository(Repository);
 
     // const checkRepositoryExists = await projectRepository.findOne({
@@ -16,7 +16,7 @@ class CreateRepositoryService {
     //   throw new Error('This repository already existis on Database.');
     // }
 
-    const response = await api.get<ICreateRepositoriesDTO>(`repos/${RepoName}`);
+    const response = await api.get<ICreateRepositoriesDTO>(`repos/${repoName}`);
 
     const {
       id,

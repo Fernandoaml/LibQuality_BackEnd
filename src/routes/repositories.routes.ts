@@ -9,12 +9,17 @@ repositoryRouter.post('/', async (request, response) => {
   try {
     const { repoName } = request.body;
     const createRepository = new CreateRepositoryService();
-    const repository = await createRepository.execute(repoName);
-    const issuesCount = repository.openIssuesCount;
     const getRepositoryIssues = new GetRepositoryIssuesService();
+
+    const repository = await createRepository.execute(repoName);
+    const issuesData = {
+      issuesCount: repository.openIssuesCount,
+      repositoryId: repository.id,
+    };
+
     const issueData = await getRepositoryIssues.execute({
       repoName,
-      issuesCount,
+      issuesData,
     });
 
     return response.json({ repository, issueData });

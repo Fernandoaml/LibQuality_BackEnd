@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import Issues from './Issue';
 
 @Entity('repositories')
 class Repository {
@@ -13,6 +16,9 @@ class Repository {
 
   @Column()
   idRepository: number;
+
+  @OneToMany(() => Issues, issue => issue.repository)
+  issuesId: Issues[];
 
   @Column()
   name: string;
