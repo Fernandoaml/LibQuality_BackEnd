@@ -32,7 +32,7 @@ class Issue {
   newestIssue: Date;
 
   @Column()
-  todayDate: Date;
+  searchedDate: Date;
 
   @CreateDateColumn()
   createdAt: Date;

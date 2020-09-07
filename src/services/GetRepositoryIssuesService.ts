@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import { parseISO, differenceInDays } from 'date-fns';
 
 import Issue from '../models/Issue';
-import api from '../assets/gitHubApiRepos';
+import api from './gitHubApiRepos';
 
 interface IIssueDataDTO {
   issuesCount: number;
@@ -40,7 +40,7 @@ class GetRepositoryIssuesService {
       repositoryId: issuesData.repositoryId,
       oldestIssue: oldDateIssue,
       newestIssue: newestDateIssue,
-      todayDate: actualDate,
+      searchedDate: actualDate,
     });
     await projectRepository.save(issues);
     return issues;

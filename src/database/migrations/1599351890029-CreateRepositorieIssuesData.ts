@@ -30,7 +30,7 @@ export default class CreateRepositorieIssuesData1599351890029
             isNullable: true,
           },
           {
-            name: 'todayDate',
+            name: 'searchedDate',
             type: 'timestamp',
             isNullable: true,
           },

@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 
 import ICreateRepositoriesDTO from '../dtos/ICreateRepositoriesDTO';
 import Repository from '../models/Repository';
-import api from '../assets/gitHubApiRepos';
+import api from './gitHubApiRepos';
 
 class CreateRepositoryService {
   public async execute(repoName: string): Promise<Repository> {
