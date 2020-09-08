@@ -1,6 +1,7 @@
 // import { parseISO, differenceInDays } from 'date-fns';
-import { parseISO } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
+import { standardDeviation, mean } from 'math-stats';
+import { differenceInDays, parseISO } from 'date-fns';
 
 import Issue from '@modules/issues/infra/typeorm/entities/Issue';
 import IIssuesRepository from '@modules/issues/repositories/IIssuesRepository';
@@ -30,25 +31,25 @@ class GetRepositoryIssuesService {
   public async execute({ repoName, issuesData }: IRequestDTO): Promise<Issue> {
     const searchedDate = new Date();
 
-    const [newestIssue, oldestIssue] = await Promise.all([
-      api.get<IIssueDTO[]>(
-        `repos/${repoName}/issues?state=open&per_page=1&sort=created`,
-      ),
-      api.get<IIssueDTO[]>(
-        `repos/${repoName}/issues?state=open&per_page=1&sort=created&direction=asc`,
-      ),
-    ]);
-    const oldDateIssue = parseISO(oldestIssue.data[0].created_at);
-    const newestDateIssue = parseISO(newestIssue.data[0].created_at);
+    const totalPages = Math.ceil(issuesData.issuesCount / 100);
+    const listWithLenght = new Array(totalPages).fill(undefined);
 
-    const issues = await this.IssuesRepository.create({
-      issuesTotal: issuesData.issuesCount,
-      repositoryId: issuesData.repositoryId,
-      oldestIssue: oldDateIssue,
-      newestIssue: newestDateIssue,
-      searchedDate,
+    const listOfIssuesRAW = await Promise.all(
+      listWithLenght.map((_, page) =>
+        api.get<IIssueDTO[]>(
+          `repos/${repoName}/issues?state=open&per_page=100&page=${page}`,
+        ),
+      ),
+    );
+    const listOfIssuesOK: any[] = [];
+    listOfIssuesRAW.forEach(page => {
+      listOfIssuesOK.push(...page.data);
     });
-    return issues;
+    const daysOfIssuesOpen = listOfIssuesOK.map(opened =>
+      differenceInDays(searchedDate, parseISO(opened.created_at)),
+    );
+    const meanOfIssuesOpen = mean(daysOfIssuesOpen);
+    const deviationOfIssuesOpen = standardDeviation(daysOfIssuesOpen);
   }
 }
 

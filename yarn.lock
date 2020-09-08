@@ -1585,6 +1585,11 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
   integrity sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
 
+math-stats@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/math-stats/-/math-stats-0.4.0.tgz#cb9542fe5ea4c6e7804cd43166703e16880b8751"
+  integrity sha512-8zthGxjz5l2m38hY+uMG8VAogAt7UtP9OnxqehjTjy6GjMxC8i+25gPHskanMVHDAMScST7SNl1beg0AkuRRqA==
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"

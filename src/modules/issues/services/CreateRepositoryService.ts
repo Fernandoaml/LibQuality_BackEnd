@@ -9,13 +9,13 @@ class CreateRepositoryService {
   public async execute(repoName: string): Promise<Repository> {
     const projectRepository = getRepository(Repository);
 
-    const checkRepositoryExists = await projectRepository.findOne({
-      where: { fullName: repoName },
-    });
+    // const checkRepositoryExists = await projectRepository.findOne({
+    //   where: { fullName: repoName },
+    // });
 
-    if (checkRepositoryExists) {
-      throw new AppError('This repository already existis on Database.', 406);
-    }
+    // if (checkRepositoryExists) {
+    //   throw new AppError('This repository already existis on Database.', 406);
+    // }
 
     const response = await api.get<ICreateRepositoriesDTO>(`repos/${repoName}`);
 

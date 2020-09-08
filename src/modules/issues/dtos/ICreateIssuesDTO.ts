@@ -3,5 +3,6 @@ export default interface ICreateIssuesDTO {
   repositoryId: string;
   oldestIssue: Date;
   newestIssue: Date;
+
   searchedDate: Date;
 }
