@@ -1,5 +1,5 @@
 export default interface ICreateRepositoriesDTO {
-  id?: number;
+  id: number;
   name: string;
   full_name: string;
   owner: {

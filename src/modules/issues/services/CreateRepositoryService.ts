@@ -1,20 +1,21 @@
 import { getRepository } from 'typeorm';
 
-import ICreateRepositoriesDTO from '../dtos/ICreateRepositoriesDTO';
-import Repository from '../models/Repository';
-import api from './gitHubApiRepos';
+import AppError from '@shared/errors/AppError';
+import ICreateRepositoriesDTO from '@modules/issues/dtos/ICreateRepositoriesDTO';
+import Repository from '@modules/issues/infra/typeorm/entities/Repository';
+import api from '@shared/infra/services/gitHubApiRepos';
 
 class CreateRepositoryService {
   public async execute(repoName: string): Promise<Repository> {
     const projectRepository = getRepository(Repository);
 
-    // const checkRepositoryExists = await projectRepository.findOne({
-    //   where: { fullName: RepoName },
-    // });
+    const checkRepositoryExists = await projectRepository.findOne({
+      where: { fullName: repoName },
+    });
 
-    // if (checkRepositoryExists) {
-    //   throw new Error('This repository already existis on Database.');
-    // }
+    if (checkRepositoryExists) {
+      throw new AppError('This repository already existis on Database.', 406);
+    }
 
     const response = await api.get<ICreateRepositoriesDTO>(`repos/${repoName}`);
 

@@ -1,6 +1,7 @@
 export default interface ICreateIssuesDTO {
   issuesTotal: number;
+  repositoryId: string;
   oldestIssue: Date;
-  actualDate: Date;
-  todayDate: Date;
+  newestIssue: Date;
+  searchedDate: Date;
 }

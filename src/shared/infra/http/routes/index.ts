@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import repositoriesRouter from './repositories.routes';
+import repositoriesRouter from '@modules/issues/infra/http/routes/repositories.routes';
 
 const routes = Router();
 
