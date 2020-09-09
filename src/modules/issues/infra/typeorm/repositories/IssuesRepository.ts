@@ -15,6 +15,17 @@ class IssuesRepository implements IIssuesRepository {
     const findIssues = await this.ormRepository.find({
       where: { repositoryId },
     });
+    return findIssues;
+  }
+
+  public async findOneByRepositoryId(
+    repositoryId: string,
+    searchedDate: Date,
+  ): Promise<Issue | undefined> {
+    const findIssues = await this.ormRepository.findOne({
+      repositoryId,
+      searchedDate,
+    });
 
     return findIssues;
   }
@@ -25,12 +36,16 @@ class IssuesRepository implements IIssuesRepository {
     oldestIssue,
     newestIssue,
     searchedDate,
+    deviationOfIssue,
+    meanOfIssue,
   }: ICreateIssuesDTO): Promise<Issue> {
     const issue = this.ormRepository.create({
       issuesTotal,
       repositoryId,
       oldestIssue,
       newestIssue,
+      deviationOfIssue,
+      meanOfIssue,
       searchedDate,
     });
 

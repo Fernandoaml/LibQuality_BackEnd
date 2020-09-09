@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 
-import AppError from '@shared/errors/AppError';
 import ICreateRepositoriesDTO from '@modules/issues/dtos/ICreateRepositoriesDTO';
 import Repository from '@modules/issues/infra/typeorm/entities/Repository';
 import api from '@shared/infra/services/gitHubApiRepos';
@@ -9,13 +8,13 @@ class CreateRepositoryService {
   public async execute(repoName: string): Promise<Repository> {
     const projectRepository = getRepository(Repository);
 
-    // const checkRepositoryExists = await projectRepository.findOne({
-    //   where: { fullName: repoName },
-    // });
+    const checkRepositoryExists = await projectRepository.findOne({
+      where: { fullName: repoName },
+    });
 
-    // if (checkRepositoryExists) {
-    //   throw new AppError('This repository already existis on Database.', 406);
-    // }
+    if (checkRepositoryExists) {
+      return checkRepositoryExists;
+    }
 
     const response = await api.get<ICreateRepositoriesDTO>(`repos/${repoName}`);
 

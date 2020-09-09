@@ -25,6 +25,12 @@ class Issue {
   @JoinColumn({ name: 'repositoryId' })
   repository: Repository;
 
+  @Column({ type: 'numeric', precision: 10, scale: 14 })
+  meanOfIssue: number;
+
+  @Column({ type: 'numeric', precision: 10, scale: 14 })
+  deviationOfIssue: number;
+
   @Column()
   oldestIssue: Date;
 

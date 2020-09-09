@@ -20,6 +20,16 @@ export default class CreateRepositorieIssuesData1599351890029
             isNullable: true,
           },
           {
+            name: 'meanOfIssue',
+            type: 'numeric',
+            isNullable: true,
+          },
+          {
+            name: 'deviationOfIssue',
+            type: 'numeric',
+            isNullable: true,
+          },
+          {
             name: 'oldestIssue',
             type: 'timestamp',
             isNullable: true,
