@@ -6,8 +6,8 @@ export default interface ICreateInternalRepositoriesDTO {
   ownerId: number;
   ownerAvatarUrl: string;
   htmlURL: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   size: number;
   stargazersCount: number;
   watchersCount: number;

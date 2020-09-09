@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { parseISO } from 'date-fns';
 
 import ICreateRepositoriesDTO from '@modules/issues/dtos/ICreateRepositoriesDTO';
 import IRepository from '@modules/issues/repositories/IRepository';
@@ -22,15 +23,14 @@ class CreateRepositoryService {
     }
 
     const response = await api.get<ICreateRepositoriesDTO>(`repos/${repoName}`);
-
+    const created_at = parseISO(response.data.created_at);
+    const updated_at = parseISO(response.data.updated_at);
     const {
       id,
       name,
       full_name,
       owner,
       html_url,
-      created_at,
-      updated_at,
       size,
       stargazers_count,
       watchers_count,
