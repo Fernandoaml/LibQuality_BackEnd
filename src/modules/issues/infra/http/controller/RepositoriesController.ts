@@ -9,7 +9,7 @@ export default class RepositoriesController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { repoName } = request.body;
 
-    const createRepository = new CreateRepositoryService();
+    const createRepository = container.resolve(CreateRepositoryService);
     const getRepositoryIssues = container.resolve(GetRepositoryIssuesService);
 
     const repository = await createRepository.execute(repoName);

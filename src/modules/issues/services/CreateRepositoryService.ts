@@ -1,16 +1,21 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 
 import ICreateRepositoriesDTO from '@modules/issues/dtos/ICreateRepositoriesDTO';
+import IRepository from '@modules/issues/repositories/IRepository';
 import Repository from '@modules/issues/infra/typeorm/entities/Repository';
 import api from '@shared/infra/services/gitHubApiRepos';
 
+@injectable()
 class CreateRepositoryService {
-  public async execute(repoName: string): Promise<Repository> {
-    const projectRepository = getRepository(Repository);
+  constructor(
+    @inject('Repository')
+    private repository: IRepository,
+  ) {}
 
-    const checkRepositoryExists = await projectRepository.findOne({
-      where: { fullName: repoName },
-    });
+  public async execute(repoName: string): Promise<Repository> {
+    const checkRepositoryExists = await this.repository.findRepositoryByName(
+      repoName,
+    );
 
     if (checkRepositoryExists) {
       return checkRepositoryExists;
@@ -34,7 +39,7 @@ class CreateRepositoryService {
       open_issues_count,
     } = response.data;
 
-    const repository = projectRepository.create({
+    const repository = await this.repository.create({
       idRepository: id,
       name,
       fullName: full_name,
@@ -51,7 +56,6 @@ class CreateRepositoryService {
       forksCount: forks_count,
       openIssuesCount: open_issues_count,
     });
-    await projectRepository.save(repository);
     return repository;
   }
 }
