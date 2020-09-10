@@ -4,7 +4,7 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "2111852111",
+  "password": "your password",
   "database": "libQuality",
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
