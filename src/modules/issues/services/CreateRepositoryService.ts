@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import { parseISO } from 'date-fns';
+import { parseISO, startOfDay } from 'date-fns';
+import amqp from 'amqplib';
 
 import ICreateRepositoriesDTO from '@modules/issues/dtos/ICreateRepositoriesDTO';
 import IRepository from '@modules/issues/repositories/IRepository';
@@ -56,6 +57,22 @@ class CreateRepositoryService {
       forksCount: forks_count,
       openIssuesCount: open_issues_count,
     });
+    const rabbitData = {
+      repositoryId: repository.id,
+      fullName: repository.fullName,
+      createdAt: startOfDay(new Date()),
+    };
+    console.log(rabbitData);
+    const rabbit = async () => {
+      const connection = await amqp.connect('amqp://guest:guest@localhost');
+      const channel = await connection.createChannel();
+      await channel.assertQueue(`GitHub`);
+      channel.sendToQueue(`GitHub`, Buffer.from(JSON.stringify(rabbitData)));
+      setTimeout(() => {
+        connection.close();
+      }, 500);
+    };
+    rabbit();
     return repository;
   }
 }
