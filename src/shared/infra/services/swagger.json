@@ -1,0 +1,167 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Test of title....",
+    "description": "Test description and easy to follow",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3333",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Repositories",
+      "description": "API to find the repository on github api, return key informations and consolidate data of issues, persisting on database. To generate a visual graph with daily informations."
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes":[
+    "application/json"
+  ],
+  "produces":[
+    "application/json"
+  ],
+  "paths": {
+    "/repositories":{
+      "post": {
+        "tags": [
+          "Repositories"
+        ],
+        "summary": "Search the specified repository and register then on database.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "repoName",
+            "description": "Ex: facebook/react",
+            "schema": {
+              "$ref": "#/definitions/Repository_Name"
+            }
+          }
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Repository"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error, review the repository name."
+          },
+          "400": {
+            "description": "Failed.. Bad post data"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Repository_Name": {
+      "properties": {
+        "repoName": {
+          "type": "string",
+          "description": "Ex: facebook/react"
+        }
+      }
+    },
+    "Repository": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/Issue"
+      },
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "idRepository": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "ownerLogin": {
+          "type": "string"
+        },
+        "ownerId": {
+          "type": "number"
+        },
+        "ownerAvatarUrl": {
+          "type": "string"
+        },
+        "htmlURL": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "stargazersCount": {
+          "type": "number"
+        },
+        "watchersCount": {
+          "type": "number"
+        },
+        "language": {
+          "type": "string"
+        },
+        "forksCount": {
+          "type": "number"
+        },
+        "openIssuesCount": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Issue": {
+      "type": "array",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "issuesTotal": {
+          "type": "number"
+        },
+        "repositoryId": {
+          "type": "string"
+        },
+        "meanOfIssue": {
+          "type": "number"
+        },
+        "deviationOfIssue": {
+          "type": "number"
+        },
+        "oldestIssue": {
+          "type": "string"
+        },
+        "newestIssue": {
+          "type": "string"
+        },
+        "searchedDate": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
